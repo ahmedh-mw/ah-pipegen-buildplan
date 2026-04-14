@@ -1,0 +1,103 @@
+name = "ProcessAdvisorExample"
+
+[project]
+shutdown-files = [
+    "tools/prjCleanup.m",
+]
+startup-folder = "work"
+
+[project.labels."Testing Interface"]
+"Software Unit" = [
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter.slx",
+    "02_Models\\Actuator_Control\\specification\\Actuator_Control.slx",
+    "02_Models\\InnerLoop_Control\\specification\\InnerLoop_Control.slx",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control.slx",
+]
+"Software Component" = [
+    "02_Models\\Flight_Control\\specification\\Flight_Control.slx",
+]
+
+[project.labels.Classification]
+Test = [
+    "02_Models\\AHRS_Voter\\test_cases\\AHRS_Voter_REQ_Based_Test.mldatx",
+    "02_Models\\OuterLoop_Control\\test_cases\\OuterLoop_Control_REQ_Based_Test.mldatx",
+]
+Derived = [
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter_harnessInfo.xml",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control_harnessInfo.xml",
+]
+Design = [
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter.slx",
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter_Harness_HLR_11.slx",
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter_Harness_HLR_12.slx",
+    "02_Models\\AHRS_Voter\\specification\\AHRS_Voter_Harness_HLR_13.slx",
+    "02_Models\\AHRS_Voter\\specification\\data\\DD_AHRS_Voter.sldd",
+    "02_Models\\Actuator_Control\\specification\\Actuator_Control.slx",
+    "02_Models\\Actuator_Control\\specification\\data\\DD_Actuator_Control.sldd",
+    "02_Models\\Actuator_Control\\specification\\data\\localDD_Actuator_Control.m",
+    "02_Models\\Flight_Control\\specification\\Flight_Control.slx",
+    "02_Models\\Flight_Control\\specification\\data\\DD_Flight_Control.sldd",
+    "02_Models\\InnerLoop_Control\\specification\\InnerLoop_Control.slx",
+    "02_Models\\InnerLoop_Control\\specification\\data\\DD_InnerLoop_Control.sldd",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control.slx",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control_Harness_HLR_6.slx",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control_Harness_HLR_7.slx",
+    "02_Models\\OuterLoop_Control\\specification\\OuterLoop_Control_Harness_HLR_8.slx",
+    "02_Models\\OuterLoop_Control\\specification\\data\\DD_OuterLoop_Control.sldd",
+    "02_Models\\common\\specification\\block_libraries\\ControlLib.slx",
+    "02_Models\\common\\specification\\block_libraries\\FilterLib.slx",
+    "02_Models\\common\\specification\\data\\csMultiInstance.sldd",
+    "02_Models\\common\\specification\\data\\csSingleInstance.sldd",
+    "02_Models\\common\\specification\\data_types\\bus_types.sldd",
+    "tools\\prjCleanup.m",
+]
+Other = [
+]
+Convenience = [
+]
+None = [
+]
+Artifact = [
+]
+
+[folders]
+path = [
+    "01_Requirements",
+    "02_Models",
+    "02_Models/AHRS_Voter",
+    "02_Models/AHRS_Voter/specification",
+    "02_Models/AHRS_Voter/specification/data",
+    "02_Models/AHRS_Voter/test_cases",
+    "02_Models/Actuator_Control",
+    "02_Models/Actuator_Control/specification",
+    "02_Models/Actuator_Control/specification/data",
+    "02_Models/Actuator_Control/test_cases",
+    "02_Models/Flight_Control",
+    "02_Models/Flight_Control/specification",
+    "02_Models/Flight_Control/specification/data",
+    "02_Models/Flight_Control/test_cases",
+    "02_Models/InnerLoop_Control",
+    "02_Models/InnerLoop_Control/specification",
+    "02_Models/InnerLoop_Control/specification/data",
+    "02_Models/InnerLoop_Control/test_cases",
+    "02_Models/OuterLoop_Control",
+    "02_Models/OuterLoop_Control/specification",
+    "02_Models/OuterLoop_Control/specification/data",
+    "02_Models/OuterLoop_Control/test_cases",
+    "02_Models/common",
+    "02_Models/common/specification",
+    "02_Models/common/specification/block_libraries",
+    "02_Models/common/specification/data",
+    "02_Models/common/specification/data_types",
+    "02_Models/common/test_cases",
+    "tools",
+]
+test = [
+    "02_Models/AHRS_Voter/test_cases",
+    "02_Models/OuterLoop_Control/test_cases",
+]
+
+[simulink]
+cache-folder = "work/cache"
+codegen-folder = "03_Code"
+
