@@ -1,16 +1,16 @@
 % Copyright 2025 The MathWorks, Inc.
 function generate_github_pipeline()
-    op = pg.pipeline.Options();
+    op = pipegen.pipeline.Options();
     op.PipelineGenerationPackageRoot = "D:/repos/gh/pipeline_generator_porting";
     % op.RelativeProjectPath = "";
     op.RemoteBuildCacheName = "GitHub_Project_buildtool";
     op.GeneratedPipelineFileName = ".github/workflows/build_pipeline.yml";
     
     op.ProcessName = "ci";
-    op.BuildPlanFilePath = "buildfile_ci.m";
+    % op.BuildPlanFilePath = "buildfile_ci.m";
     % op.Architecture = pg.pipeline.Architecture.FullDAGJobs;
-    op.Architecture = pg.pipeline.Architecture.SerialJobs;
-    op.Platform = pg.pipeline.Platform.GitHub;
+    op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
+    op.Platform = pipegen.pipeline.Platform.GitHub;
     op.TemplatePath = ".github/workflows/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
     op.StopOnStageFailure = true;
@@ -34,5 +34,5 @@ function generate_github_pipeline()
     % op.MatlabStartupOptions = "";
     % op.AddBatchStartupOption = false;
 
-    matlab.buildtool.generators.generatePipeline(op);
+    pipegen.mbt.generators.generatePipeline(op);
 end

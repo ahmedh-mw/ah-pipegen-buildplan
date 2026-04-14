@@ -45,16 +45,16 @@ jobs:
       job-name: "ci_madv_AHRS_Voter"
   
 
-  ci_ded_AHRS_Voter:
+  ci_web_AHRS_Voter:
     needs: [ci_madv_AHRS_Voter]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_ded_AHRS_Voter"
+      job-name: "ci_web_AHRS_Voter"
   
 
   ci_codegen_AHRS_Voter:
-    needs: [ci_ded_AHRS_Voter]
+    needs: [ci_web_AHRS_Voter]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -69,64 +69,24 @@ jobs:
       job-name: "ci_slci_AHRS_Voter"
   
 
-  ci_mil_AHRS_Voter_HLR_1:
-    needs: [ci_slci_AHRS_Voter]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_AHRS_Voter_HLR_1"
-  
-
-  ci_mil_AHRS_Voter_HLR_2:
-    needs: [ci_mil_AHRS_Voter_HLR_1]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_AHRS_Voter_HLR_2"
-  
-
-  ci_mil_AHRS_Voter_HLR_3:
-    needs: [ci_mil_AHRS_Voter_HLR_2]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_AHRS_Voter_HLR_3"
-  
-
-  ci_mergeTest_AHRS_Voter:
-    needs: [ci_mil_AHRS_Voter_HLR_3]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mergeTest_AHRS_Voter"
-  
-
-  ci_mtMetrics_AHRS_Voter:
-    needs: [ci_mergeTest_AHRS_Voter]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mtMetrics_AHRS_Voter"
-  
-
   ci_madv_Actuator_Control:
-    needs: [ci_mtMetrics_AHRS_Voter]
+    needs: [ci_slci_AHRS_Voter]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
       job-name: "ci_madv_Actuator_Control"
   
 
-  ci_ded_Actuator_Control:
+  ci_web_Actuator_Control:
     needs: [ci_madv_Actuator_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_ded_Actuator_Control"
+      job-name: "ci_web_Actuator_Control"
   
 
   ci_codegen_Actuator_Control:
-    needs: [ci_ded_Actuator_Control]
+    needs: [ci_web_Actuator_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -141,32 +101,24 @@ jobs:
       job-name: "ci_slci_Actuator_Control"
   
 
-  ci_mtMetrics_Actuator_Control:
-    needs: [ci_slci_Actuator_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mtMetrics_Actuator_Control"
-  
-
   ci_madv_Flight_Control:
-    needs: [ci_mtMetrics_Actuator_Control]
+    needs: [ci_slci_Actuator_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
       job-name: "ci_madv_Flight_Control"
   
 
-  ci_ded_Flight_Control:
+  ci_web_Flight_Control:
     needs: [ci_madv_Flight_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_ded_Flight_Control"
+      job-name: "ci_web_Flight_Control"
   
 
   ci_codegen_Flight_Control:
-    needs: [ci_ded_Flight_Control]
+    needs: [ci_web_Flight_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -189,16 +141,16 @@ jobs:
       job-name: "ci_madv_InnerLoop_Control"
   
 
-  ci_ded_InnerLoop_Control:
+  ci_web_InnerLoop_Control:
     needs: [ci_madv_InnerLoop_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_ded_InnerLoop_Control"
+      job-name: "ci_web_InnerLoop_Control"
   
 
   ci_codegen_InnerLoop_Control:
-    needs: [ci_ded_InnerLoop_Control]
+    needs: [ci_web_InnerLoop_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -213,32 +165,24 @@ jobs:
       job-name: "ci_slci_InnerLoop_Control"
   
 
-  ci_mtMetrics_InnerLoop_Control:
-    needs: [ci_slci_InnerLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mtMetrics_InnerLoop_Control"
-  
-
   ci_madv_OuterLoop_Control:
-    needs: [ci_mtMetrics_InnerLoop_Control]
+    needs: [ci_slci_InnerLoop_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
       job-name: "ci_madv_OuterLoop_Control"
   
 
-  ci_ded_OuterLoop_Control:
+  ci_web_OuterLoop_Control:
     needs: [ci_madv_OuterLoop_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_ded_OuterLoop_Control"
+      job-name: "ci_web_OuterLoop_Control"
   
 
   ci_codegen_OuterLoop_Control:
-    needs: [ci_ded_OuterLoop_Control]
+    needs: [ci_web_OuterLoop_Control]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -251,46 +195,6 @@ jobs:
     secrets: inherit
     with:
       job-name: "ci_slci_OuterLoop_Control"
-  
-
-  ci_mil_OuterLoop_Control_HLR_4:
-    needs: [ci_slci_OuterLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_OuterLoop_Control_HLR_4"
-  
-
-  ci_mil_OuterLoop_Control_HLR_5:
-    needs: [ci_mil_OuterLoop_Control_HLR_4]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_OuterLoop_Control_HLR_5"
-  
-
-  ci_mil_OuterLoop_Control_HLR_6:
-    needs: [ci_mil_OuterLoop_Control_HLR_5]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mil_OuterLoop_Control_HLR_6"
-  
-
-  ci_mergeTest_OuterLoop_Control:
-    needs: [ci_mil_OuterLoop_Control_HLR_6]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mergeTest_OuterLoop_Control"
-  
-
-  ci_mtMetrics_OuterLoop_Control:
-    needs: [ci_mergeTest_OuterLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_mtMetrics_OuterLoop_Control"
   
 
 
