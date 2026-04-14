@@ -9,7 +9,8 @@ function generate_github_pipeline()
     op.ProcessName = "ci";
     % op.BuildPlanFilePath = "buildfile_ci.m";
     % op.Architecture = pg.pipeline.Architecture.FullDAGJobs;
-    op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
+    % op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
+    op.Architecture = pipegen.pipeline.Architecture.SingleJob;
     op.Platform = pipegen.pipeline.Platform.GitHub;
     op.TemplatePath = ".github/workflows/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
