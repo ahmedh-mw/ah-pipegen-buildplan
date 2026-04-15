@@ -61,12 +61,4 @@ jobs:
       job-name: "ci_codegen"
   
 
-  ci_slci:
-    needs: [ci_codegen]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_slci"
-  
-
 
