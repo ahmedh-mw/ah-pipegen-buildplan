@@ -46,7 +46,7 @@ jobs:
   
 
   ci_web:
-    needs: [ci_madv]
+    needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -59,6 +59,14 @@ jobs:
     secrets: inherit
     with:
       job-name: "ci_codegen"
+  
+
+  end:
+    needs: [ci_madv, ci_codegen]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "end"
   
 
 

@@ -4,7 +4,7 @@
     "Platform": "GitHub",
     "BuildPlanFilePath": "buildfile.m",
     "ProcessName": "ci",
-    "Architecture": "SerialJobsGroupPerTask",
+    "Architecture": "RootDagJobs",
     "MatlabLaunchCmd": "matlab -batch",
     "GeneratedPipelineFileName": ".github/workflows/build_pipeline.yml",
     "PipelineGenerationPackageRoot": "D:/repos/gh/pipeline_generator_porting",
@@ -32,12 +32,16 @@
     "ImageTag": "",
     "UpstreamJobName": "SimulinkPipelineGeneration",
     "TemplatePath": ".github/workflows/generic-job.yml",
+    "SilentMode": false,
     "GeneratedPipelineDirectory": ".github/workflows"
   },
   "IncrementalPipelineEnabled": true,
-  "AllowMultipleStartJobs": false,
-  "StartJobName": "ci_madv",
-  "EndJobName": "ci_codegen",
+  "AllowMultipleStartJobs": true,
+  "StartJobNames": [
+    "ci_madv",
+    "ci_web"
+  ],
+  "EndJobName": "end",
   "HasNestedParallelBranches": false,
   "ConflictExceptions": "derived\\digital_thread_project_26b.db",
   "Jobs": {
@@ -59,7 +63,7 @@
       ],
       "JunitFiles": [],
       "PredecessorJobsNames": [],
-      "SuccessorJobsNames": "ci_web",
+      "SuccessorJobsNames": "end",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_madv'",
       "MATLABCommands": "buildtool ci:madv -buildFile buildfile.m;",
       "PostMATLABCommands": [],
@@ -71,7 +75,7 @@
       "IsCollectingArtifacts": false,
       "IsCollectingJunitFiles": false,
       "BranchName": "br_ci_madv",
-      "DownloadBranchName": "br_ci_madv"
+      "DownloadBranchName": "br_end"
     },
     "ci_web": {
       "Name": "ci_web",
@@ -90,20 +94,20 @@
         "Results/OuterLoop_Control/webview/OuterLoop_Control_webview/OuterLoop_Control_webview.html"
       ],
       "JunitFiles": [],
-      "PredecessorJobsNames": "ci_madv",
+      "PredecessorJobsNames": [],
       "SuccessorJobsNames": "ci_codegen",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_web'",
       "MATLABCommands": "buildtool ci:web -buildFile buildfile.m;",
       "PostMATLABCommands": [],
-      "IsStartingNewBranch": false,
+      "IsStartingNewBranch": true,
       "IsMergingJob": false,
       "IsSplittingJob": false,
-      "IsStartJob": false,
+      "IsStartJob": true,
       "IsEndJob": false,
       "IsCollectingArtifacts": false,
       "IsCollectingJunitFiles": false,
-      "BranchName": "br_ci_madv",
-      "DownloadBranchName": ""
+      "BranchName": "br_ci_web",
+      "DownloadBranchName": "br_end"
     },
     "ci_codegen": {
       "Name": "ci_codegen",
@@ -124,12 +128,11 @@
         "03_Code/InnerLoop_Control_ert_rtw/**/*.c",
         "03_Code/InnerLoop_Control_ert_rtw/**/*.h",
         "03_Code/OuterLoop_Control_ert_rtw/**/*.c",
-        "03_Code/OuterLoop_Control_ert_rtw/**/*.h",
-        "build_results/reports/finalReport"
+        "03_Code/OuterLoop_Control_ert_rtw/**/*.h"
       ],
       "JunitFiles": [],
       "PredecessorJobsNames": "ci_web",
-      "SuccessorJobsNames": [],
+      "SuccessorJobsNames": "end",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_codegen'",
       "MATLABCommands": "buildtool ci:codegen -buildFile buildfile.m;",
       "PostMATLABCommands": [],
@@ -137,10 +140,33 @@
       "IsMergingJob": false,
       "IsSplittingJob": false,
       "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": false,
+      "BranchName": "br_ci_web",
+      "DownloadBranchName": ""
+    },
+    "end": {
+      "Name": "end",
+      "Tasks": [],
+      "OutputsPaths": "build_results/reports/finalReport",
+      "JunitFiles": [],
+      "PredecessorJobsNames": [
+        "ci_madv",
+        "ci_codegen"
+      ],
+      "SuccessorJobsNames": [],
+      "PreMATLABCommands": [],
+      "MATLABCommands": "disp('end merging job...')",
+      "PostMATLABCommands": [],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": true,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
       "IsEndJob": true,
       "IsCollectingArtifacts": true,
       "IsCollectingJunitFiles": false,
-      "BranchName": "br_ci_madv",
+      "BranchName": "br_end",
       "DownloadBranchName": ""
     }
   },
@@ -149,6 +175,33 @@
       "Name": "br_ci_madv",
       "PredecessorBranchesNames": [],
       "AllPredecessorBranchesNames": [],
+      "SuccessorBranchesNames": "br_end",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TEC08205FA0E32B38",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T40AEE7F051AD05A3",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TDBA7957E1BCB0552",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TBBB58ACE2B0383AE",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T0AB5D0D8528D9D83",
+        "Results/AHRS_Voter/model_standards_results/AHRS_Voter_ModelAdvisor.html",
+        "Results/Actuator_Control/model_standards_results/Actuator_Control_ModelAdvisor.html",
+        "Results/Flight_Control/model_standards_results/Flight_Control_ModelAdvisor.html",
+        "Results/InnerLoop_Control/model_standards_results/InnerLoop_Control_ModelAdvisor.html",
+        "Results/OuterLoop_Control/model_standards_results/OuterLoop_Control_ModelAdvisor.html"
+      ],
+      "JobsNames": "ci_madv",
+      "Level": 0
+    },
+    "br_end": {
+      "Name": "br_end",
+      "PredecessorBranchesNames": [
+        "br_ci_madv",
+        "br_ci_web"
+      ],
+      "AllPredecessorBranchesNames": [
+        "br_ci_madv",
+        "br_ci_web"
+      ],
       "SuccessorBranchesNames": [],
       "OutputsPaths": [
         "derived\\digital_thread_project_26b.db",
@@ -188,20 +241,66 @@
         "03_Code/OuterLoop_Control_ert_rtw/**/*.c",
         "03_Code/OuterLoop_Control_ert_rtw/**/*.h"
       ],
+      "JobsNames": "end",
+      "Level": 1
+    },
+    "br_ci_web": {
+      "Name": "br_ci_web",
+      "PredecessorBranchesNames": [],
+      "AllPredecessorBranchesNames": [],
+      "SuccessorBranchesNames": "br_end",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T9F7C03BA843E2AEA",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TB79EFB1E4ACB4015",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T08CD316540EA490C",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T9C091E11B5CAD685",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TDAF0D1317BE2804A",
+        "Results/AHRS_Voter/webview/AHRS_Voter_webview/AHRS_Voter_webview.html",
+        "Results/Actuator_Control/webview/Actuator_Control_webview/Actuator_Control_webview.html",
+        "Results/Flight_Control/webview/Flight_Control_webview/Flight_Control_webview.html",
+        "Results/InnerLoop_Control/webview/InnerLoop_Control_webview/InnerLoop_Control_webview.html",
+        "Results/OuterLoop_Control/webview/OuterLoop_Control_webview/OuterLoop_Control_webview.html",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T903E1778E36E63F6",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TD42C5748064BD68F",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T5D3F70A32BC0C2B9",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TED25405946B6B235",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T498412E01B6AA618",
+        "03_Code/AHRS_Voter_ert_rtw/**/*.c",
+        "03_Code/AHRS_Voter_ert_rtw/**/*.h",
+        "03_Code/Actuator_Control_ert_rtw/**/*.c",
+        "03_Code/Actuator_Control_ert_rtw/**/*.h",
+        "03_Code/Flight_Control_ert_rtw/**/*.c",
+        "03_Code/Flight_Control_ert_rtw/**/*.h",
+        "03_Code/InnerLoop_Control_ert_rtw/**/*.c",
+        "03_Code/InnerLoop_Control_ert_rtw/**/*.h",
+        "03_Code/OuterLoop_Control_ert_rtw/**/*.c",
+        "03_Code/OuterLoop_Control_ert_rtw/**/*.h"
+      ],
       "JobsNames": [
-        "ci_madv",
         "ci_web",
         "ci_codegen"
       ],
       "Level": 0
     }
   },
-  "Stages": {
-    "Name": "Stage_1",
-    "BranchesNames": "br_ci_madv",
-    "Level": 0,
-    "HasParallelBranches": false
-  },
+  "Stages": [
+    {
+      "Name": "Stage_1",
+      "BranchesNames": [
+        "br_ci_madv",
+        "br_ci_web"
+      ],
+      "Level": 0,
+      "HasParallelBranches": true
+    },
+    {
+      "Name": "Stage_2",
+      "BranchesNames": "br_end",
+      "Level": 1,
+      "HasParallelBranches": false
+    }
+  ],
   "OutputsPaths": [
     ".buildtool\\26.2.0.3174034\\taskTraces\\T08CD316540EA490C",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T0AB5D0D8528D9D83",
