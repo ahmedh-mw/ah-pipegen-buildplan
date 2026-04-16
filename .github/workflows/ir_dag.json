@@ -156,8 +156,8 @@
         "ci_codegen"
       ],
       "SuccessorJobsNames": [],
-      "PreMATLABCommands": [],
-      "MATLABCommands": "disp('end merging job...')",
+      "PreMATLABCommands": "echo 'Final merging job... - end'",
+      "MATLABCommands": [],
       "PostMATLABCommands": [],
       "IsStartingNewBranch": true,
       "IsMergingJob": true,
