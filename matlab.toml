@@ -91,6 +91,7 @@ path = [
     "02_Models/common/specification/data_types",
     "02_Models/common/test_cases",
     "tools",
+    ".github/workflows",
 ]
 test = [
     "02_Models/AHRS_Voter/test_cases",
