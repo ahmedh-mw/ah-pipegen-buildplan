@@ -38,7 +38,7 @@
   "IncrementalPipelineEnabled": true,
   "AllowMultipleStartJobs": true,
   "StartJobNames": "ci_init",
-  "EndJobName": "ci_package",
+  "EndJobName": "end",
   "HasNestedParallelBranches": true,
   "ConflictExceptions": "derived\\digital_thread_project_26b.db",
   "Jobs": {
@@ -68,7 +68,7 @@
       "IsCollectingArtifacts": false,
       "IsCollectingJunitFiles": false,
       "BranchName": "br_ci_init",
-      "DownloadBranchName": "br_ci_package"
+      "DownloadBranchName": "br_end"
     },
     "ci_config": {
       "Name": "ci_config",
@@ -143,44 +143,13 @@
         "ci_config",
         "ci_parse"
       ],
-      "SuccessorJobsNames": "ci_transform",
+      "SuccessorJobsNames": "end",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_validate'",
       "MATLABCommands": "buildtool ci:validate -buildFile buildfile.m;",
       "PostMATLABCommands": [],
       "IsStartingNewBranch": true,
       "IsMergingJob": true,
       "IsSplittingJob": false,
-      "IsStartJob": false,
-      "IsEndJob": false,
-      "IsCollectingArtifacts": false,
-      "IsCollectingJunitFiles": false,
-      "BranchName": "br_ci_validate",
-      "DownloadBranchName": ""
-    },
-    "ci_transform": {
-      "Name": "ci_transform",
-      "Tasks": "ci:transform",
-      "OutputsPaths": [
-        "derived\\digital_thread_project_26b.db",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_output.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_log.txt"
-      ],
-      "JunitFiles": [],
-      "PredecessorJobsNames": "ci_validate",
-      "SuccessorJobsNames": [
-        "ci_analyze",
-        "ci_package"
-      ],
-      "PreMATLABCommands": "echo 'Pre MATLAB command - ci_transform'",
-      "MATLABCommands": "buildtool ci:transform -buildFile buildfile.m;",
-      "PostMATLABCommands": [],
-      "IsStartingNewBranch": false,
-      "IsMergingJob": false,
-      "IsSplittingJob": true,
       "IsStartJob": false,
       "IsEndJob": false,
       "IsCollectingArtifacts": false,
@@ -201,16 +170,13 @@
         "results/ci/analyze/Flight_Control/Flight_Control_log.txt"
       ],
       "JunitFiles": [],
-      "PredecessorJobsNames": [
-        "ci_config",
-        "ci_transform"
-      ],
+      "PredecessorJobsNames": "ci_config",
       "SuccessorJobsNames": "ci_report",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_analyze'",
       "MATLABCommands": "buildtool ci:analyze -buildFile buildfile.m;",
       "PostMATLABCommands": [],
       "IsStartingNewBranch": true,
-      "IsMergingJob": true,
+      "IsMergingJob": false,
       "IsSplittingJob": false,
       "IsStartJob": false,
       "IsEndJob": false,
@@ -254,17 +220,36 @@
         "derived\\digital_thread_project_26b.db",
         ".buildtool\\26.2.0.3174034\\taskTraces\\T598FBF31BDA6E687",
         "results/ci/package/package_output.txt",
-        "results/ci/package/package_log.txt",
-        "build_results/reports/finalReport"
+        "results/ci/package/package_log.txt"
       ],
       "JunitFiles": [],
-      "PredecessorJobsNames": [
-        "ci_transform",
-        "ci_report"
-      ],
-      "SuccessorJobsNames": [],
+      "PredecessorJobsNames": "ci_report",
+      "SuccessorJobsNames": "end",
       "PreMATLABCommands": "echo 'Pre MATLAB command - ci_package'",
       "MATLABCommands": "buildtool ci:package -buildFile buildfile.m;",
+      "PostMATLABCommands": [],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": false,
+      "BranchName": "br_ci_report",
+      "DownloadBranchName": ""
+    },
+    "end": {
+      "Name": "end",
+      "Tasks": [],
+      "OutputsPaths": "build_results/reports/finalReport",
+      "JunitFiles": [],
+      "PredecessorJobsNames": [
+        "ci_validate",
+        "ci_package"
+      ],
+      "SuccessorJobsNames": [],
+      "PreMATLABCommands": "echo 'Final merging job... - end'",
+      "MATLABCommands": [],
       "PostMATLABCommands": [],
       "IsStartingNewBranch": true,
       "IsMergingJob": true,
@@ -273,7 +258,7 @@
       "IsEndJob": true,
       "IsCollectingArtifacts": true,
       "IsCollectingJunitFiles": false,
-      "BranchName": "br_ci_package",
+      "BranchName": "br_end",
       "DownloadBranchName": ""
     }
   },
@@ -326,10 +311,7 @@
         "br_ci_parse",
         "br_ci_init"
       ],
-      "SuccessorBranchesNames": [
-        "br_ci_analyze",
-        "br_ci_package"
-      ],
+      "SuccessorBranchesNames": "br_end",
       "OutputsPaths": [
         "derived\\digital_thread_project_26b.db",
         ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
@@ -346,118 +328,13 @@
         "results/ci/validate/AHRS_Voter/AHRS_Voter_output.txt",
         "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
         "results/ci/validate/Flight_Control/Flight_Control_output.txt",
-        "results/ci/validate/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_output.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_log.txt"
+        "results/ci/validate/Flight_Control/Flight_Control_log.txt"
       ],
-      "JobsNames": [
-        "ci_validate",
-        "ci_transform"
-      ],
+      "JobsNames": "ci_validate",
       "Level": 2
     },
-    "br_ci_analyze": {
-      "Name": "br_ci_analyze",
-      "PredecessorBranchesNames": [
-        "br_ci_config",
-        "br_ci_validate"
-      ],
-      "AllPredecessorBranchesNames": [
-        "br_ci_config",
-        "br_ci_validate",
-        "br_ci_init",
-        "br_ci_parse"
-      ],
-      "SuccessorBranchesNames": "br_ci_report",
-      "OutputsPaths": [
-        "derived\\digital_thread_project_26b.db",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
-        "results/ci/init/init_output.txt",
-        "results/ci/init/init_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TF5F736C9DA67D8AD",
-        "results/ci/config/config_output.txt",
-        "results/ci/config/config_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TE30BD7AC31C0A3BA",
-        "results/ci/parse/parse_output.txt",
-        "results/ci/parse/parse_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TCFB682BFC460609F",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TF64E517D0D460140",
-        "results/ci/validate/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/validate/Flight_Control/Flight_Control_output.txt",
-        "results/ci/validate/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_output.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
-        "results/ci/analyze/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/analyze/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/analyze/Flight_Control/Flight_Control_output.txt",
-        "results/ci/analyze/Flight_Control/Flight_Control_log.txt"
-      ],
-      "JobsNames": "ci_analyze",
-      "Level": 2
-    },
-    "br_ci_report": {
-      "Name": "br_ci_report",
-      "PredecessorBranchesNames": [
-        "br_ci_parse",
-        "br_ci_analyze"
-      ],
-      "AllPredecessorBranchesNames": [
-        "br_ci_parse",
-        "br_ci_analyze",
-        "br_ci_init",
-        "br_ci_config",
-        "br_ci_validate"
-      ],
-      "SuccessorBranchesNames": "br_ci_package",
-      "OutputsPaths": [
-        "derived\\digital_thread_project_26b.db",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
-        "results/ci/init/init_output.txt",
-        "results/ci/init/init_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TE30BD7AC31C0A3BA",
-        "results/ci/parse/parse_output.txt",
-        "results/ci/parse/parse_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TF5F736C9DA67D8AD",
-        "results/ci/config/config_output.txt",
-        "results/ci/config/config_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TCFB682BFC460609F",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TF64E517D0D460140",
-        "results/ci/validate/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/validate/Flight_Control/Flight_Control_output.txt",
-        "results/ci/validate/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_output.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
-        "results/ci/analyze/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/analyze/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/analyze/Flight_Control/Flight_Control_output.txt",
-        "results/ci/analyze/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T2AD50EAEB8BF779E",
-        "results/ci/report/report_output.txt",
-        "results/ci/report/report_log.txt"
-      ],
-      "JobsNames": "ci_report",
-      "Level": 2
-    },
-    "br_ci_package": {
-      "Name": "br_ci_package",
+    "br_end": {
+      "Name": "br_end",
       "PredecessorBranchesNames": [
         "br_ci_validate",
         "br_ci_report"
@@ -488,12 +365,6 @@
         "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
         "results/ci/validate/Flight_Control/Flight_Control_output.txt",
         "results/ci/validate/Flight_Control/Flight_Control_log.txt",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
-        ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-        "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_output.txt",
-        "results/ci/transform/Flight_Control/Flight_Control_log.txt",
         ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
         ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
         "results/ci/analyze/AHRS_Voter/AHRS_Voter_output.txt",
@@ -507,8 +378,77 @@
         "results/ci/package/package_output.txt",
         "results/ci/package/package_log.txt"
       ],
-      "JobsNames": "ci_package",
+      "JobsNames": "end",
       "Level": 3
+    },
+    "br_ci_analyze": {
+      "Name": "br_ci_analyze",
+      "PredecessorBranchesNames": "br_ci_config",
+      "AllPredecessorBranchesNames": [
+        "br_ci_config",
+        "br_ci_init"
+      ],
+      "SuccessorBranchesNames": "br_ci_report",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
+        "results/ci/init/init_output.txt",
+        "results/ci/init/init_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TF5F736C9DA67D8AD",
+        "results/ci/config/config_output.txt",
+        "results/ci/config/config_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
+        "results/ci/analyze/AHRS_Voter/AHRS_Voter_output.txt",
+        "results/ci/analyze/AHRS_Voter/AHRS_Voter_log.txt",
+        "results/ci/analyze/Flight_Control/Flight_Control_output.txt",
+        "results/ci/analyze/Flight_Control/Flight_Control_log.txt"
+      ],
+      "JobsNames": "ci_analyze",
+      "Level": 2
+    },
+    "br_ci_report": {
+      "Name": "br_ci_report",
+      "PredecessorBranchesNames": [
+        "br_ci_parse",
+        "br_ci_analyze"
+      ],
+      "AllPredecessorBranchesNames": [
+        "br_ci_parse",
+        "br_ci_analyze",
+        "br_ci_init",
+        "br_ci_config"
+      ],
+      "SuccessorBranchesNames": "br_end",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
+        "results/ci/init/init_output.txt",
+        "results/ci/init/init_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TE30BD7AC31C0A3BA",
+        "results/ci/parse/parse_output.txt",
+        "results/ci/parse/parse_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TF5F736C9DA67D8AD",
+        "results/ci/config/config_output.txt",
+        "results/ci/config/config_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
+        "results/ci/analyze/AHRS_Voter/AHRS_Voter_output.txt",
+        "results/ci/analyze/AHRS_Voter/AHRS_Voter_log.txt",
+        "results/ci/analyze/Flight_Control/Flight_Control_output.txt",
+        "results/ci/analyze/Flight_Control/Flight_Control_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T2AD50EAEB8BF779E",
+        "results/ci/report/report_output.txt",
+        "results/ci/report/report_log.txt",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T598FBF31BDA6E687",
+        "results/ci/package/package_output.txt",
+        "results/ci/package/package_log.txt"
+      ],
+      "JobsNames": [
+        "ci_report",
+        "ci_package"
+      ],
+      "Level": 2
     },
     "br_ci_parse": {
       "Name": "br_ci_parse",
@@ -559,20 +499,18 @@
     },
     {
       "Name": "Stage_4",
-      "BranchesNames": "br_ci_package",
+      "BranchesNames": "br_end",
       "Level": 3,
       "HasParallelBranches": false
     }
   ],
   "OutputsPaths": [
     ".buildtool\\26.2.0.3174034\\taskTraces\\T2AD50EAEB8BF779E",
-    ".buildtool\\26.2.0.3174034\\taskTraces\\T3ADDF09AD6324A50",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T598FBF31BDA6E687",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
     ".buildtool\\26.2.0.3174034\\taskTraces\\TA0FE8207D8151508",
     ".buildtool\\26.2.0.3174034\\taskTraces\\TCFB682BFC460609F",
-    ".buildtool\\26.2.0.3174034\\taskTraces\\TD9A9C9EA6A7BCAC8",
     ".buildtool\\26.2.0.3174034\\taskTraces\\TE30BD7AC31C0A3BA",
     ".buildtool\\26.2.0.3174034\\taskTraces\\TF5F736C9DA67D8AD",
     ".buildtool\\26.2.0.3174034\\taskTraces\\TF64E517D0D460140",
@@ -591,10 +529,6 @@
     "results/ci/parse/parse_output.txt",
     "results/ci/report/report_log.txt",
     "results/ci/report/report_output.txt",
-    "results/ci/transform/AHRS_Voter/AHRS_Voter_log.txt",
-    "results/ci/transform/AHRS_Voter/AHRS_Voter_output.txt",
-    "results/ci/transform/Flight_Control/Flight_Control_log.txt",
-    "results/ci/transform/Flight_Control/Flight_Control_output.txt",
     "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
     "results/ci/validate/AHRS_Voter/AHRS_Voter_output.txt",
     "results/ci/validate/Flight_Control/Flight_Control_log.txt",

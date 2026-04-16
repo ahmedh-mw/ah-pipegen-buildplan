@@ -69,16 +69,8 @@ jobs:
       job-name: "ci_validate"
   
 
-  ci_transform:
-    needs: [ci_validate]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_transform"
-  
-
   ci_analyze:
-    needs: [ci_config, ci_transform]
+    needs: [ci_config]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -94,11 +86,19 @@ jobs:
   
 
   ci_package:
-    needs: [ci_transform, ci_report]
+    needs: [ci_report]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
       job-name: "ci_package"
+  
+
+  end:
+    needs: [ci_validate, ci_package]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "end"
   
 
 
