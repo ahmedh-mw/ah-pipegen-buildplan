@@ -78,7 +78,7 @@ jobs:
   
 
   ci_analyze:
-    needs: [ci_transform]
+    needs: [ci_config, ci_transform]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
@@ -86,7 +86,7 @@ jobs:
   
 
   ci_report:
-    needs: [ci_analyze]
+    needs: [ci_parse, ci_analyze]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
