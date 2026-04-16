@@ -13,7 +13,8 @@ function generate_jenkins_pipeline(pipelineGenDirectory)
     
     op.ProcessName = "ci";
     % op.BuildPlanFilePath = "buildfile_ci.m";
-    op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
+    % op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
+    op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
     op.Platform = pipegen.pipeline.Platform.Jenkins;
     % op.TemplatePath = "templates/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
