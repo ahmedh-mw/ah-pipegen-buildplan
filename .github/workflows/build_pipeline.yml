@@ -45,6 +45,14 @@ jobs:
       job-name: "ci_init"
   
 
+  ci_setup:
+    needs: [build_files]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_setup"
+  
+
   ci_config:
     needs: [ci_init]
     uses: ./.github/workflows/generic-job.yml
@@ -94,7 +102,7 @@ jobs:
   
 
   end:
-    needs: [ci_validate, ci_package]
+    needs: [ci_setup, ci_validate, ci_package]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:

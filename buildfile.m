@@ -5,6 +5,7 @@ plan = buildplan();
 
 % Root
 plan = addTask(plan, "ci:init",                    "Initialize project structure");
+plan = addTask(plan, "ci:setup",                    "Setup project");
 
 % Two independent branches from init
 plan = addTask(plan, "ci:config",                  "Generate configuration files",     "ci:init");

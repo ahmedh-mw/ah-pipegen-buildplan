@@ -37,7 +37,10 @@
   },
   "IncrementalPipelineEnabled": true,
   "AllowMultipleStartJobs": true,
-  "StartJobNames": "ci_init",
+  "StartJobNames": [
+    "ci_init",
+    "ci_setup"
+  ],
   "EndJobName": "end",
   "HasNestedParallelBranches": true,
   "ConflictExceptions": "derived\\digital_thread_project_26b.db",
@@ -68,6 +71,31 @@
       "IsCollectingArtifacts": false,
       "IsCollectingJunitFiles": false,
       "BranchName": "br_ci_init",
+      "DownloadBranchName": "br_end"
+    },
+    "ci_setup": {
+      "Name": "ci_setup",
+      "Tasks": "ci:setup",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T2BA9A1C8A94436B9",
+        "results/ci/setup/setup_output.txt",
+        "results/ci/setup/setup_log.txt"
+      ],
+      "JunitFiles": [],
+      "PredecessorJobsNames": [],
+      "SuccessorJobsNames": "end",
+      "PreMATLABCommands": "echo 'Pre MATLAB command - ci_setup'",
+      "MATLABCommands": "buildtool ci:setup -buildFile buildfile.m;",
+      "PostMATLABCommands": [],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": true,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": false,
+      "BranchName": "br_ci_setup",
       "DownloadBranchName": "br_end"
     },
     "ci_config": {
@@ -244,6 +272,7 @@
       "OutputsPaths": "build_results/reports/finalReport",
       "JunitFiles": [],
       "PredecessorJobsNames": [
+        "ci_setup",
         "ci_validate",
         "ci_package"
       ],
@@ -336,10 +365,12 @@
     "br_end": {
       "Name": "br_end",
       "PredecessorBranchesNames": [
+        "br_ci_setup",
         "br_ci_validate",
         "br_ci_report"
       ],
       "AllPredecessorBranchesNames": [
+        "br_ci_setup",
         "br_ci_validate",
         "br_ci_report",
         "br_ci_config",
@@ -350,6 +381,9 @@
       "SuccessorBranchesNames": [],
       "OutputsPaths": [
         "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T2BA9A1C8A94436B9",
+        "results/ci/setup/setup_output.txt",
+        "results/ci/setup/setup_log.txt",
         ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
         "results/ci/init/init_output.txt",
         "results/ci/init/init_log.txt",
@@ -379,7 +413,7 @@
         "results/ci/package/package_log.txt"
       ],
       "JobsNames": "end",
-      "Level": 3
+      "Level": 1
     },
     "br_ci_analyze": {
       "Name": "br_ci_analyze",
@@ -469,19 +503,37 @@
       ],
       "JobsNames": "ci_parse",
       "Level": 1
+    },
+    "br_ci_setup": {
+      "Name": "br_ci_setup",
+      "PredecessorBranchesNames": [],
+      "AllPredecessorBranchesNames": [],
+      "SuccessorBranchesNames": "br_end",
+      "OutputsPaths": [
+        "derived\\digital_thread_project_26b.db",
+        ".buildtool\\26.2.0.3174034\\taskTraces\\T2BA9A1C8A94436B9",
+        "results/ci/setup/setup_output.txt",
+        "results/ci/setup/setup_log.txt"
+      ],
+      "JobsNames": "ci_setup",
+      "Level": 0
     }
   },
   "Stages": [
     {
       "Name": "Stage_1",
-      "BranchesNames": "br_ci_init",
+      "BranchesNames": [
+        "br_ci_init",
+        "br_ci_setup"
+      ],
       "Level": 0,
-      "HasParallelBranches": false
+      "HasParallelBranches": true
     },
     {
       "Name": "Stage_2",
       "BranchesNames": [
         "br_ci_config",
+        "br_end",
         "br_ci_parse"
       ],
       "Level": 1,
@@ -496,16 +548,11 @@
       ],
       "Level": 2,
       "HasParallelBranches": true
-    },
-    {
-      "Name": "Stage_4",
-      "BranchesNames": "br_end",
-      "Level": 3,
-      "HasParallelBranches": false
     }
   ],
   "OutputsPaths": [
     ".buildtool\\26.2.0.3174034\\taskTraces\\T2AD50EAEB8BF779E",
+    ".buildtool\\26.2.0.3174034\\taskTraces\\T2BA9A1C8A94436B9",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T3D01D5C4F0EC881C",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T598FBF31BDA6E687",
     ".buildtool\\26.2.0.3174034\\taskTraces\\T606D8597E6816771",
@@ -529,6 +576,8 @@
     "results/ci/parse/parse_output.txt",
     "results/ci/report/report_log.txt",
     "results/ci/report/report_output.txt",
+    "results/ci/setup/setup_log.txt",
+    "results/ci/setup/setup_output.txt",
     "results/ci/validate/AHRS_Voter/AHRS_Voter_log.txt",
     "results/ci/validate/AHRS_Voter/AHRS_Voter_output.txt",
     "results/ci/validate/Flight_Control/Flight_Control_log.txt",
