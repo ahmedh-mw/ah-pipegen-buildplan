@@ -44,3 +44,5 @@ codegen/
 /03_code
 /.build
 /derived
+.claude/
+.playwright-mcp/
