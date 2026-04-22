@@ -7,11 +7,12 @@ function generate_github_pipeline()
     op.GeneratedPipelineFileName = ".github/workflows/build_pipeline.yml";
     
     op.ProcessName = "ci";
-    % op.BuildPlanFilePath = "buildfile_ci.m";
-    op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
+    op.BuildPlanFilePath = "buildfile_original.m";
+    % op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
     % op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
     % op.Architecture = pipegen.pipeline.Architecture.SerialJobsGroupPerTask;
     % op.Architecture = pipegen.pipeline.Architecture.SingleJob;
+    op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
     op.Platform = pipegen.pipeline.Platform.GitHub;
     op.TemplatePath = ".github/workflows/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
