@@ -37,128 +37,72 @@ jobs:
           name: workflow_generated_files
           path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/
 
-  ci_madv_AHRS_Voter:
+  ci_init:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_madv_AHRS_Voter"
+      job-name: "ci_init"
   
 
-  ci_web_AHRS_Voter:
-    needs: [ci_madv_AHRS_Voter]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_web_AHRS_Voter"
-  
-
-  ci_codegen_AHRS_Voter:
-    needs: [ci_web_AHRS_Voter]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_codegen_AHRS_Voter"
-  
-
-  ci_madv_Actuator_Control:
+  ci_setup:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_madv_Actuator_Control"
+      job-name: "ci_setup"
   
 
-  ci_web_Actuator_Control:
-    needs: [ci_madv_Actuator_Control]
+  ci_config:
+    needs: [ci_init]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_web_Actuator_Control"
+      job-name: "ci_config"
   
 
-  ci_codegen_Actuator_Control:
-    needs: [ci_web_Actuator_Control]
+  ci_parse:
+    needs: [ci_init]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_codegen_Actuator_Control"
+      job-name: "ci_parse"
   
 
-  ci_madv_Flight_Control:
-    needs: [build_files]
+  ci_validate:
+    needs: [ci_config, ci_parse]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_madv_Flight_Control"
+      job-name: "ci_validate"
   
 
-  ci_web_Flight_Control:
-    needs: [ci_madv_Flight_Control]
+  ci_analyze:
+    needs: [ci_config]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_web_Flight_Control"
+      job-name: "ci_analyze"
   
 
-  ci_codegen_Flight_Control:
-    needs: [ci_web_Flight_Control]
+  ci_report:
+    needs: [ci_parse, ci_analyze]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_codegen_Flight_Control"
+      job-name: "ci_report"
   
 
-  ci_madv_InnerLoop_Control:
-    needs: [build_files]
+  ci_package:
+    needs: [ci_report]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_madv_InnerLoop_Control"
-  
-
-  ci_web_InnerLoop_Control:
-    needs: [ci_madv_InnerLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_web_InnerLoop_Control"
-  
-
-  ci_codegen_InnerLoop_Control:
-    needs: [ci_web_InnerLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_codegen_InnerLoop_Control"
-  
-
-  ci_madv_OuterLoop_Control:
-    needs: [build_files]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_madv_OuterLoop_Control"
-  
-
-  ci_web_OuterLoop_Control:
-    needs: [ci_madv_OuterLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_web_OuterLoop_Control"
-  
-
-  ci_codegen_OuterLoop_Control:
-    needs: [ci_web_OuterLoop_Control]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_codegen_OuterLoop_Control"
+      job-name: "ci_package"
   
 
   end:
-    needs: [ci_codegen_AHRS_Voter, ci_codegen_Actuator_Control, ci_codegen_Flight_Control, ci_codegen_InnerLoop_Control, ci_codegen_OuterLoop_Control]
+    needs: [ci_setup, ci_validate, ci_package]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
