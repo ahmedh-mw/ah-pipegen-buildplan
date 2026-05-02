@@ -46,3 +46,5 @@ codegen/
 /derived
 .claude/
 .playwright-mcp/
+
+*bak.m

@@ -37,72 +37,32 @@ jobs:
           name: workflow_generated_files
           path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/
 
-  ci_init:
+  ci_madv:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_init"
+      job-name: "ci_madv"
   
 
-  ci_setup:
+  ci_web:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_setup"
+      job-name: "ci_web"
   
 
-  ci_config:
-    needs: [ci_init]
+  ci_codegen:
+    needs: [ci_web]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_config"
-  
-
-  ci_parse:
-    needs: [ci_init]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_parse"
-  
-
-  ci_validate:
-    needs: [ci_config, ci_parse]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_validate"
-  
-
-  ci_analyze:
-    needs: [ci_config]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_analyze"
-  
-
-  ci_report:
-    needs: [ci_parse, ci_analyze]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_report"
-  
-
-  ci_package:
-    needs: [ci_report]
-    uses: ./.github/workflows/generic-job.yml
-    secrets: inherit
-    with:
-      job-name: "ci_package"
+      job-name: "ci_codegen"
   
 
   end:
-    needs: [ci_setup, ci_validate, ci_package]
+    needs: [ci_madv, ci_codegen]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
