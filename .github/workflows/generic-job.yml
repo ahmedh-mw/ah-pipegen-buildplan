@@ -34,13 +34,13 @@ jobs:
           name: workflow_generated_files
           path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}
       - name: Load environment variables
-        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/prepare.py --clean_temp_gen_area --jobname \"${{ inputs.job-name }}\" --pipeline_prepare --platform github"
+        run: "python3 '${{ env.MW_PIPELINE_UTIL_PATH }}/py/prepare.py' --clean_temp_gen_area --jobname \"${{ inputs.job-name }}\" --pipeline_prepare --platform github"
       - name: Download Artifacts
-        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_download.py --jobname \"${{ inputs.job-name }}\""
+        run: "python3 '${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_download.py' --jobname \"${{ inputs.job-name }}\""
       - name: Execute Job Tasks
         run: "${{ env._MW_PIPELINE_TEMP_GEN_PATH }}/shell_commands"
       - name: Upload Job Artifacts
-        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_upload.py --jobname \"${{ inputs.job-name }}\" --job_status \"${{ job.status }}\" --skip_compression"
+        run: "python3 '${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_upload.py' --jobname \"${{ inputs.job-name }}\" --job_status \"${{ job.status }}\" --skip_compression"
         if: always() && !cancelled()
       - name: Upload Pipeline Artifacts
         if: ${{ always() && !cancelled() && env._MW_PIPELINE_JOB_IS_COLLECTING_ARTIFACTS == 'true' }}
