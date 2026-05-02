@@ -15,8 +15,8 @@ function generate_jenkins_pipeline(pipelineGenDirectory)
     % op.BuildPlanFilePath = "buildfile_ci.m";
     % op.BuildPlanFilePath = "buildfile_original.m";
     % op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
-    % op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
-    op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
+    op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
+    % op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
     op.Platform = pipegen.pipeline.Platform.Jenkins;
     % op.TemplatePath = "templates/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
