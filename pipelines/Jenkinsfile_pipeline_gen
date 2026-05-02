@@ -1,7 +1,7 @@
 // Copyright 2025 The MathWorks, Inc.
 node('selfhosted_win_agents'){
     // For the online configuration guide visit: https://www.mathworks.com/help/slcheck/padv/ug/integrate-process-into-jenkins-with-artifact-management.html
-    env.MW_PIPELINE_GENERATION_PACKAGE_ROOT = 'D:/repos/gh/pipeline_generator_porting'
+    env.MW_PIPELINE_GENERATION_PACKAGE_ROOT = "C:/Users/ahmedh/AppData/Roaming/MathWorks/MATLAB Add-Ons/PipelineGenerator@1.0.0"
     // env.MW_RELATIVE_PROJECT_PATH = "<Project relative path from repository root>";  // e.g. "" or "relative/path/to/project/"
     env.MW_REMOTE_BUILD_CACHE_NAME = "$JOB_NAME"
     env.MW_PIPELINE_GEN_DIRECTORY = "_pipelineGen_"
