@@ -1,9 +1,9 @@
 % Copyright 2025 The MathWorks, Inc.
 function generate_github_pipeline()
     op = pipegen.pipeline.Options();
-    op.PipelineGenerationPackageRoot = "D:/repos/gh/pipeline_generator_porting";
+    op.PipelineGenerationPackageRoot = "C:/Users/ahmedh/AppData/Roaming/MathWorks/MATLAB Add-Ons/PipelineGenerator@1.0.0";
     % op.RelativeProjectPath = "";
-    op.RemoteBuildCacheName = "GitHub_Project_buildtool";
+    op.RemoteBuildCacheName = "GitHub_Project_buildtool2";
     op.GeneratedPipelineFileName = ".github/workflows/build_pipeline.yml";
     
     op.ProcessName = "ci";

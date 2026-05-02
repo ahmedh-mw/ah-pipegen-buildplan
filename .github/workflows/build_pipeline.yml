@@ -10,7 +10,7 @@ on: # You must define at least one trigger for each workflow.
     # reopened: This triggers the workflow when a previously closed pull request is reopened
     types: [opened, synchronize, reopened]
 env:
-  MW_PIPELINE_GENERATION_PACKAGE_ROOT: 'D:/repos/gh/pipeline_generator_porting'
+  MW_PIPELINE_GENERATION_PACKAGE_ROOT: 'C:/Users/ahmedh/AppData/Roaming/MathWorks/MATLAB Add-Ons/PipelineGenerator@1.0.0'
   MW_RELATIVE_PROJECT_PATH: ''
   MW_PIPELINE_GEN_DIRECTORY: "_pipelineGen_"
   MW_IR_DAG_FILE_PATH: ".github/workflows/"
@@ -37,32 +37,72 @@ jobs:
           name: workflow_generated_files
           path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/
 
-  ci_madv:
+  ci_init:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_madv"
+      job-name: "ci_init"
   
 
-  ci_web:
+  ci_setup:
     needs: [build_files]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_web"
+      job-name: "ci_setup"
   
 
-  ci_codegen:
-    needs: [ci_web]
+  ci_config:
+    needs: [ci_init]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
-      job-name: "ci_codegen"
+      job-name: "ci_config"
+  
+
+  ci_parse:
+    needs: [ci_init]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_parse"
+  
+
+  ci_validate:
+    needs: [ci_config, ci_parse]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_validate"
+  
+
+  ci_analyze:
+    needs: [ci_config]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_analyze"
+  
+
+  ci_report:
+    needs: [ci_parse, ci_analyze]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_report"
+  
+
+  ci_package:
+    needs: [ci_report]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: "ci_package"
   
 
   end:
-    needs: [ci_madv, ci_codegen]
+    needs: [ci_setup, ci_validate, ci_package]
     uses: ./.github/workflows/generic-job.yml
     secrets: inherit
     with:
