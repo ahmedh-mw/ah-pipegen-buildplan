@@ -18,7 +18,7 @@ variables:
 SimulinkPipelineGeneration:
   stage: SimulinkPipelineGeneration
   variables:
-    MW_PIPELINE_UTIL_PATH: "${MW_SUPPORT_PACKAGE_ROOT}/ci"
+    MW_PIPELINE_UTIL_PATH: "${MW_PIPELINE_GENERATION_PACKAGE_ROOT}/ci"
   tags: ["selfhosted_win_agents"]
   script:
     - >
