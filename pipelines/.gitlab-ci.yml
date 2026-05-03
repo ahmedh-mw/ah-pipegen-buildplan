@@ -6,7 +6,7 @@ stages:
   - SimulinkPipelineExecution
 
 variables:
-  MW_SUPPORT_PACKAGE_ROOT: "C:\\Users\\ahmedh\\AppData\\Roaming\\MathWorks\\MATLAB Add-Ons\\PipelineGenerator@1.0.0"
+  MW_PIPELINE_GENERATION_PACKAGE_ROOT: "C:\\Users\\ahmedh\\AppData\\Roaming\\MathWorks\\MATLAB Add-Ons\\PipelineGenerator@1.0.0"
   # MW_RELATIVE_PROJECT_PATH: "<Project relative path from repository root>"    # e.g. "" or "relative/path/to/project/"
   MW_REMOTE_BUILD_CACHE_NAME: "${CI_PIPELINE_NAME}" 
   MW_PIPELINE_GEN_DIRECTORY: _pipelineGen_
@@ -19,7 +19,7 @@ SimulinkPipelineGeneration:
   stage: SimulinkPipelineGeneration
   variables:
     MW_PIPELINE_UTIL_PATH: "${MW_SUPPORT_PACKAGE_ROOT}/ci"
-  tags: ["<GitLab runner tags>"]
+  tags: ["selfhosted_win_agents"]
   script:
     - >
       python3 -c "import shutil,os;os.makedirs(r'$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY', exist_ok=True); 
