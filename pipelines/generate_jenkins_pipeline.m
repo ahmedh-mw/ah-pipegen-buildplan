@@ -16,7 +16,7 @@ function generate_jenkins_pipeline(pipelineGenDirectory)
     % op.BuildPlanFilePath = "buildfile_original.m";
     % op.Architecture = pipegen.pipeline.Architecture.SerialJobs;
     % op.Architecture = pipegen.pipeline.Architecture.RootDagJobs;
-    op.Architecture = pipegen.pipeline.Architecture.serialJobsGroupPerTask;
+    op.Architecture = pipegen.pipeline.Architecture.SerialJobsGroupPerTask;
     % op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
     op.Platform = pipegen.pipeline.Platform.Jenkins;
     % op.TemplatePath = "templates/generic-job.yml";
