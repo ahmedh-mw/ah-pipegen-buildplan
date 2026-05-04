@@ -12,7 +12,7 @@ stages:
   condition: ${{ parameters.condition }}
   jobs:
   - job: job_${{ parameters.name }}
-    pool: 'selfhosted_win_agents'
+    pool: 'padv_win_agents'
     variables:
       MW_REMOTE_BUILD_CACHE_NAME: ""
       MW_PIPELINE_GEN_PATH: $(MW_RELATIVE_PROJECT_PATH)$(MW_PIPELINE_GEN_DIRECTORY)
