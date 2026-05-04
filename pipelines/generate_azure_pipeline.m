@@ -4,6 +4,7 @@ function generate_azure_pipeline()
     op = pipegen.pipeline.Options();
     op.PipelineGenerationPackageRoot = "C:/Users/ahmedh/AppData/Roaming/MathWorks/MATLAB Add-Ons/PipelineGenerator@1.0.0";
     % op.RelativeProjectPath = "";
+    op.RemoteBuildCacheName = "Pipegen_Azure_buildtool";
     op.GeneratedPipelineFileName = ".azure/workflows/build_pipeline.yml";
     
     op.ProcessName = "ci";
