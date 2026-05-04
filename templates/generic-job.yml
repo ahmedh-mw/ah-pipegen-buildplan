@@ -1,0 +1,60 @@
+parameters:
+- name: name
+- name: dependsOn
+  type: object
+  default: []
+- name: condition
+  type: string
+  default: 'succeeded()'
+stages:
+- stage: ${{ parameters.name }}
+  dependsOn: ${{ parameters.dependsOn }}
+  condition: ${{ parameters.condition }}
+  jobs:
+  - job: job_${{ parameters.name }}
+    pool: 'selfhosted_win_agents'
+    variables:
+      MW_REMOTE_BUILD_CACHE_NAME: ""
+      MW_PIPELINE_GEN_PATH: $(MW_RELATIVE_PROJECT_PATH)$(MW_PIPELINE_GEN_DIRECTORY)
+      _MW_PIPELINE_WORKSPACE_PATH_KEY: SYSTEM_DEFAULTWORKINGDIRECTORY
+      _MW_PIPELINE_WORKSPACE_TEMP_PATH_KEY: SYSTEM_ARTIFACTSDIRECTORY
+      MW_PIPELINE_UTIL_PATH: $(MW_PIPELINE_GENERATION_PACKAGE_ROOT)/ci
+    steps:
+    - checkout: self
+      fetchDepth: 0
+      submodules: recursive
+    - task: DownloadPipelineArtifact@2
+      displayName: Download pipeline generated files
+      inputs:
+        artifact: pipeline_generated_files
+        path: '$(MW_PIPELINE_GEN_PATH)'
+    - script: python3 "$(MW_PIPELINE_UTIL_PATH)/py/prepare.py" --clean_temp_gen_area --jobname "$(System.StageName)" --pipeline_prepare --platform azuredevops
+      displayName: Load environment variables
+    - script: python3 "$(MW_PIPELINE_UTIL_PATH)/py/job_download.py" --jobname "$(System.StageName)"
+      displayName: Download Artifacts
+      env:
+        ARTIFACTORY_API_TOKEN: $(ARTIFACTORY_API_TOKEN_SECRET)
+        S3_AWS_SECRET_ACCESS_KEY: $(S3_AWS_SECRET_ACCESS_KEY_SECRET)
+        AZ_CONNECTION_STRING: $(AZ_CONNECTION_STRING_SECRET)
+    - script: $(System.ArtifactsDirectory)/$(_MW_PIPELINE_CONST_TEMP_GEN_DIRECTORY)/shell_commands
+      displayName: Execute Job Tasks
+      env:
+        MLM_LICENSE_TOKEN: $(MLM_LICENSE_TOKEN_SECRET)
+    - script: python3 "$(MW_PIPELINE_UTIL_PATH)/py/job_upload.py" --jobname "$(System.StageName)" --job_status "$(agent.jobstatus)" --skip_compression
+      displayName: Upload Job Artifacts
+      condition: succeededOrFailed()
+      env:
+        ARTIFACTORY_API_TOKEN: $(ARTIFACTORY_API_TOKEN_SECRET)
+        S3_AWS_SECRET_ACCESS_KEY: $(S3_AWS_SECRET_ACCESS_KEY_SECRET)
+        AZ_CONNECTION_STRING: $(AZ_CONNECTION_STRING_SECRET)
+    - task: PublishTestResults@2
+      displayName: Publish Test Results
+      condition: eq(variables['_MW_PIPELINE_JOB_IS_COLLECTING_JUNIT_FILES'], 'true')
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '$(_MW_PIPELINE_CONST_JUNIT_DIRECTORY)/**/*.xml'
+    - publish: $(_MW_PIPELINE_OPTIONS_ARTIFACTS_FILE_NAME_STEM)/
+      displayName: Upload Pipeline Artifacts
+      artifact: $(_MW_PIPELINE_OPTIONS_ARTIFACTS_FILE_NAME_STEM)
+      condition: eq(variables['_MW_PIPELINE_JOB_IS_COLLECTING_ARTIFACTS'], 'true')
+
