@@ -9,7 +9,7 @@ function generate_jenkins_pipeline(pipelineGenDirectory)
     op.PipelineGenerationPackageRoot = string(getenv('MW_PIPELINE_GENERATION_PACKAGE_ROOT'));
     op.RelativeProjectPath = string(getenv('MW_RELATIVE_PROJECT_PATH'));
     op.RemoteBuildCacheName = string(getenv('MW_REMOTE_BUILD_CACHE_NAME'));
-    op.GeneratedPipelineFileName = fullfile(pipelineGenDirectory, "build_pipeline.groovy");
+    op.GeneratedPipelineFileName = fullfile(pipelineGenDirectory, "simulink_pipeline.yml");
     
     op.ProcessName = "ci";
     % op.BuildPlanFilePath = "buildfile_ci.m";
