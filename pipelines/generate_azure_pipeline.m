@@ -21,11 +21,13 @@ function generate_azure_pipeline()
     op.ReportPath = "build_results/reports/finalReport";
     op.GenerateJUnitForProcess = false;
     
-    op.ArtifactServiceMode = 'network';         % network/jfrog/s3/azure_blob
+    op.ArtifactServiceMode = 'jfrog';         % network/jfrog/s3/azure_blob
     % op.NetworkStoragePath = '<Network storage path>';
-    op.NetworkStoragePath = "C:\artifactManagement";
+    % op.NetworkStoragePath = "C:\artifactManagement";
     % op.ArtifactoryUrl = '<JFrog Artifactory url>';
+    op.ArtifactoryUrl = 'http://mathworks-v4rgb:8082/artifactory';
     % op.ArtifactoryRepoName = '<JFrog Artifactory repo name>';
+    op.ArtifactoryRepoName = 'padv-bslcicd';
     % op.S3BucketName = '<AWS S3 bucket name>';
     % op.S3AwsAccessKeyID = '<AWS S3 access key id>';
     % op.AzContainerName = 'padvblobcontainer';
