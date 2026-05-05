@@ -21,15 +21,17 @@ function generate_azure_pipeline()
     op.ReportPath = "build_results/reports/finalReport";
     op.GenerateJUnitForProcess = false;
     
-    op.ArtifactServiceMode = 'jfrog';         % network/jfrog/s3/azure_blob
+    op.ArtifactServiceMode = 's3';         % network/jfrog/s3/azure_blob
     % op.NetworkStoragePath = '<Network storage path>';
     % op.NetworkStoragePath = "C:\artifactManagement";
     % op.ArtifactoryUrl = '<JFrog Artifactory url>';
-    op.ArtifactoryUrl = 'http://mathworks-v4rgb:8082/artifactory';
+    % op.ArtifactoryUrl = 'http://mathworks-v4rgb:8082/artifactory';
     % op.ArtifactoryRepoName = '<JFrog Artifactory repo name>';
-    op.ArtifactoryRepoName = 'padv-bslcicd';
+    % op.ArtifactoryRepoName = 'padv-bslcicd';
     % op.S3BucketName = '<AWS S3 bucket name>';
+    op.S3BucketName = 'padv-bslcicd';
     % op.S3AwsAccessKeyID = '<AWS S3 access key id>';
+    op.S3AwsAccessKeyID = 'AKIA3GOQ46RW26ARMMHY';
     % op.AzContainerName = 'padvblobcontainer';
     % op.RunnerType = "container";          % default/container
     % op.ImageTag = '<Docker Image full name>';
