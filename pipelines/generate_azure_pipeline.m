@@ -15,7 +15,7 @@ function generate_azure_pipeline()
     % op.Architecture = pipegen.pipeline.Architecture.SingleJob;
     % op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
     op.Platform = pipegen.pipeline.Platform.AzureDevOps;
-    op.TemplatePath = "templates/generic-job.yml";
+    op.TemplatePath = "/templates/generic-job.yml";
     op.RunnerTags = "padv_win_agents";
     op.StopOnStageFailure = true;
     op.ReportPath = "build_results/reports/finalReport";

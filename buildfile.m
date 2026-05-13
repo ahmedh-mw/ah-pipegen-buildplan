@@ -3,41 +3,24 @@ import matlab.buildtool.*;
 
 plan = buildplan();
 
-% Root
 plan = addTask(plan, "ci:init",                    "Initialize project structure");
 plan = addTask(plan, "ci:setup",                    "Setup project");
-
-% Two independent branches from init
 plan = addTask(plan, "ci:config",                  "Generate configuration files",     "ci:init");
 plan = addTask(plan, "ci:parse",                   "Parse input data",                 "ci:init");
-
-% Validate branch: each model depends on parse + config
 plan = addTask(plan, "ci:validate:AHRS_Voter",     "Validate AHRS Voter model",       ["ci:parse", "ci:config"]);
 plan = addTask(plan, "ci:validate:Flight_Control", "Validate Flight Control model",    ["ci:parse", "ci:config"]);
-
-% Transform splits per model — each only needs its own validation
-% plan = addTask(plan, "ci:transform:AHRS_Voter",    "Transform AHRS Voter data",       "ci:validate:AHRS_Voter");
-% plan = addTask(plan, "ci:transform:Flight_Control", "Transform Flight Control data",   "ci:validate:Flight_Control");
-
-% Analyze: AHRS_Voter needs its own transform + config (cross-branch dep)
-%          Flight_Control needs its own transform only
 plan = addTask(plan, "ci:analyze:AHRS_Voter",      "Run analysis on AHRS Voter",      ["ci:config"]);
 plan = addTask(plan, "ci:analyze:Flight_Control",  "Run analysis on Flight Control");
-
-% Report merges both analyze branches + needs parse (cross-branch dep)
 plan = addTask(plan, "ci:report",                  "Generate report from analysis",    ["ci:analyze:AHRS_Voter", "ci:analyze:Flight_Control", "ci:parse"]);
-
-% Package depends on report + both transforms (reaching back across branches)
 plan = addTask(plan, "ci:package",                 "Package all outputs for delivery", ["ci:report"]);
 
 end
 
 function plan = addTask(plan, name, description, deps)
   import matlab.buildtool.*;
-
   plan(name) = Task( ...
-      Description=description, ...
-      Actions=@runTask);
+    Description=description, ...
+    Actions=@runTask);
   plan(name).Outputs = taskOutputFiles(name);
 
   if nargin > 3

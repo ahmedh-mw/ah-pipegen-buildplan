@@ -19,7 +19,7 @@ function generate_jenkins_pipeline(pipelineGenDirectory)
     % op.Architecture = pipegen.pipeline.Architecture.SerialJobsGroupPerTask;
     % op.Architecture = pipegen.pipeline.Architecture.IndependentModelJobs;
     op.Platform = pipegen.pipeline.Platform.GitLab;
-    % op.TemplatePath = "templates/generic-job.yml";
+    % op.TemplatePath = "/templates/generic-job.yml";
     op.RunnerTags = "selfhosted_win_agents";
     op.StopOnStageFailure = true;
     op.ReportPath = "build_results/reports/finalReport";
