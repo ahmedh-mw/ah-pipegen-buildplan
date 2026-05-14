@@ -3,29 +3,16 @@ import matlab.buildtool.*;
 
 plan = buildplan();
 
-% Sequential tasks
 plan = addTask(plan, "ci:init",                    "Initialize project structure");
-plan = addTask(plan, "ci:setup",                   "Setup project",                    "ci:init");
-
-% Branch 1: Build
-plan = addTask(plan, "ci:build:compile",           "Compile source code",              "ci:setup");
-plan = addTask(plan, "ci:build:link",              "Link object files",                "ci:build:compile");
-plan = addTask(plan, "ci:build:package",           "Package build artifacts",          "ci:build:link");
-
-% Branch 2: Test
-plan = addTask(plan, "ci:test:unit",               "Run unit tests",                   "ci:setup");
-plan = addTask(plan, "ci:test:integration",        "Run integration tests",            "ci:test:unit");
-plan = addTask(plan, "ci:test:coverage",           "Generate coverage report",         "ci:test:integration");
-
-% Branch 3: Analysis
-plan = addTask(plan, "ci:analysis:static",         "Run static analysis",              "ci:setup");
-plan = addTask(plan, "ci:analysis:complexity",     "Compute complexity metrics",       "ci:analysis:static");
-plan = addTask(plan, "ci:analysis:security",       "Run security scan",                "ci:analysis:complexity");
-
-% Merge and final jobs
-plan = addTask(plan, "ci:integrate",               "Integrate all branch results",     ["ci:build:package", "ci:test:coverage", "ci:analysis:security"]);
-plan = addTask(plan, "ci:report",                  "Generate final report",            "ci:integrate");
-plan = addTask(plan, "ci:deploy",                  "Deploy to staging",                "ci:report");
+plan = addTask(plan, "ci:setup",                    "Setup project");
+plan = addTask(plan, "ci:config",                  "Generate configuration files",     "ci:init");
+plan = addTask(plan, "ci:parse",                   "Parse input data",                 "ci:init");
+plan = addTask(plan, "ci:validate:AHRS_Voter",     "Validate AHRS Voter model",       ["ci:parse", "ci:config"]);
+plan = addTask(plan, "ci:validate:Flight_Control", "Validate Flight Control model",    ["ci:parse", "ci:config"]);
+plan = addTask(plan, "ci:analyze:AHRS_Voter",      "Run analysis on AHRS Voter",      ["ci:config"]);
+plan = addTask(plan, "ci:analyze:Flight_Control",  "Run analysis on Flight Control");
+plan = addTask(plan, "ci:report",                  "Generate report from analysis",    ["ci:analyze:AHRS_Voter", "ci:analyze:Flight_Control", "ci:parse"]);
+plan = addTask(plan, "ci:package",                 "Package all outputs for delivery", ["ci:report"]);
 
 end
 
