@@ -8,22 +8,22 @@ plan = addTask(plan, "ci:init",                    "Initialize project structure
 plan = addTask(plan, "ci:setup",                   "Setup project",                    "ci:init");
 
 % Branch 1: Build
-plan = addTask(plan, "ci:build:compile",           "Compile source code",              "ci:setup");
-plan = addTask(plan, "ci:build:link",              "Link object files",                "ci:build:compile");
-plan = addTask(plan, "ci:build:package",           "Package build artifacts",          "ci:build:link");
+plan = addTask(plan, "ci:build_compile",           "Compile source code",              "ci:setup");
+plan = addTask(plan, "ci:build_link",              "Link object files",                "ci:build_compile");
+plan = addTask(plan, "ci:build_package",           "Package build artifacts",          "ci:build_link");
 
 % Branch 2: Test
-plan = addTask(plan, "ci:test:unit",               "Run unit tests",                   "ci:setup");
-plan = addTask(plan, "ci:test:integration",        "Run integration tests",            "ci:test:unit");
-plan = addTask(plan, "ci:test:coverage",           "Generate coverage report",         "ci:test:integration");
+plan = addTask(plan, "ci:test_unit",               "Run unit tests",                   "ci:setup");
+plan = addTask(plan, "ci:test_integration",        "Run integration tests",            "ci:test_unit");
+plan = addTask(plan, "ci:test_coverage",           "Generate coverage report",         "ci:test_integration");
 
 % Branch 3: Analysis
-plan = addTask(plan, "ci:analysis:static",         "Run static analysis",              "ci:setup");
-plan = addTask(plan, "ci:analysis:complexity",     "Compute complexity metrics",       "ci:analysis:static");
-plan = addTask(plan, "ci:analysis:security",       "Run security scan",                "ci:analysis:complexity");
+plan = addTask(plan, "ci:analysis_static",         "Run static analysis",              "ci:setup");
+plan = addTask(plan, "ci:analysis_complexity",     "Compute complexity metrics",       "ci:analysis_static");
+plan = addTask(plan, "ci:analysis_security",       "Run security scan",                "ci:analysis_complexity");
 
 % Merge and final jobs
-plan = addTask(plan, "ci:integrate",               "Integrate all branch results",     ["ci:build:package", "ci:test:coverage", "ci:analysis:security"]);
+plan = addTask(plan, "ci:integrate",               "Integrate all branch results",     ["ci:build_package", "ci:test_coverage", "ci:analysis_security"]);
 plan = addTask(plan, "ci:report",                  "Generate final report",            "ci:integrate");
 plan = addTask(plan, "ci:deploy",                  "Deploy to staging",                "ci:report");
 
